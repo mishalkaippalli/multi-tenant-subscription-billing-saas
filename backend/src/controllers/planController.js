@@ -4,6 +4,18 @@ exports.createPlan = async (req, res) => {
   try {
     const { name, price, billingInterval } = req.body;
 
+    const existingPlan = await Plan.findOne({
+    company: req.user.company,
+    name,
+    });
+
+  if (existingPlan) {
+   return res.status(400).json({
+    success: false,
+    message: "Plan already exists",
+   });
+  }
+
     const plan = await Plan.create({
       company: req.user.company,
       name,

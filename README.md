@@ -58,14 +58,14 @@ multi-tenant-billing-saas
 * [x] Project Setup
 * [x] Express Server
 * [x] MongoDB Connection
-* [ ] Database Design
-* [ ] Authentication
-* [ ] Plan Management
-* [ ] User Management
-* [ ] Subscription Module
-* [ ] Billing Engine
-* [ ] Dashboard
-* [ ] Frontend
+* [x] Database Design
+* [x] Authentication
+* [x] Plan Management
+* [x] User Management
+* [x] Subscription Module
+* [x] Billing Engine
+* [x] Dashboard
+* [x] Frontend
 * [ ] Deployment
 
 ---

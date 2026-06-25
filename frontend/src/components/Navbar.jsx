@@ -1,4 +1,22 @@
+import { useNavigate } from "react-router-dom";
+import api from "../services/api";
+
+
 function Navbar() {
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+  try {
+
+    await api.post("/auth/logout");
+
+    navigate("/login");
+
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <div className="bg-white shadow flex justify-between items-center px-8 py-5">
 
@@ -14,9 +32,12 @@ function Navbar() {
 
       </div>
 
-      <button className="bg-red-500 text-white px-5 py-2 rounded-lg">
-        Logout
-      </button>
+      <button
+    onClick={handleLogout}
+      className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
+      > 
+    Logout
+     </button>
 
     </div>
   );

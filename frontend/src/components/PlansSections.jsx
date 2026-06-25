@@ -86,7 +86,7 @@ function PlansSection() {
 
         <div className="bg-white rounded-xl shadow p-6 mt-8">
 
-            <h2 className="text-2xl font-semibold mb-6">
+            <h2 className="text-2xl font-semibold text-slate-800">
                 Plans
             </h2>
 

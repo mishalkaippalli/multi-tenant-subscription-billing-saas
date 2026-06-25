@@ -44,7 +44,7 @@ function UsersSection() {
         password: "",
       });
 
-      alert("User created successfully");
+    //   alert("User created successfully");
     } catch (error) {
       alert(error.response?.data?.message || "Failed to create user");
     }

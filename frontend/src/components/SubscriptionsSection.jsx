@@ -76,7 +76,7 @@ function SubscriptionsSection() {
 
   return (
     <div className="bg-white rounded-xl shadow p-6 mt-8">
-      <h2 className="text-2xl font-semibold mb-6">
+      <h2 className="text-3xl font-bold text-gray-900 mb-6">
         Subscriptions
       </h2>
 

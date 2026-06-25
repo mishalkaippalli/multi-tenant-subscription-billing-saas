@@ -24,7 +24,7 @@ function BillingSection() {
 
       const response = await api.post("/billing/run-cycle");
 
-      alert(response.data.message);
+    //   alert(response.data.message);
 
       fetchBillingLogs();
     } catch (error) {

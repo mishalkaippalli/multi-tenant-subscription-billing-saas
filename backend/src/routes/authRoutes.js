@@ -8,6 +8,7 @@ const {
 const {
   register,
   login,
+  logout
 } = require("../controllers/authController");
 
 router.get("/me", protect, (req, res) => {
@@ -17,7 +18,9 @@ router.get("/me", protect, (req, res) => {
   });
 });
 
+
 router.post("/register", register);
 router.post("/login", login);
+router.post("/logout", logout);
 
 module.exports = router;

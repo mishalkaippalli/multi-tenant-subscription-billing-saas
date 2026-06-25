@@ -52,7 +52,7 @@ function UsersSection() {
 
   return (
     <div className="bg-white rounded-xl shadow p-6 mt-8">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-900">
+      <h2 className="text-3xl font-bold text-slate-900 mb-6">
         Users
       </h2>
 

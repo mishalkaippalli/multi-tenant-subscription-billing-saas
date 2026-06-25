@@ -7,6 +7,7 @@ const planRoutes = require("./routes/planRoutes");
 const userRoutes = require("./routes/userRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const billingRoutes = require("./routes/billingRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 
 const app = express();
@@ -28,13 +29,7 @@ app.use("/api/plans", planRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/billing", billingRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
-// // Test Route
-// app.get("/", (req, res) => {
-//   res.json({
-//     success: true,
-//     message: "API is running..."
-//   });
-// });
 
 module.exports = app;

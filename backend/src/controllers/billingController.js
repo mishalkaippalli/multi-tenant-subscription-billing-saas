@@ -2,9 +2,7 @@ const Subscription = require("../models/Subscription");
 const BillingLog = require("../models/BillingLog");
 
 exports.runBillingCycle = async (req, res) => {
-
   try {
-
     const subscriptions = await Subscription.find({
       company: req.user.company,
       status: "Active",
@@ -18,24 +16,49 @@ exports.runBillingCycle = async (req, res) => {
 
     for (const subscription of subscriptions) {
 
+      // 1. Check if subscription has expired
       if (subscription.endDate < today) {
-
         subscription.status = "Expired";
         await subscription.save();
 
         expired++;
-
         continue;
       }
 
-      if (
-        subscription.lastBilledDate &&
-        subscription.lastBilledDate.toDateString() === today.toDateString()
-      ) {
+   
+
+       // 2. Has the subscription started?
+      if (subscription.startDate > today) {
+        skipped++;
+        continue;
+       }
+        let shouldBill = false;
+
+      // 3. First billing
+      if (!subscription.lastBilledDate) {
+        shouldBill = true;
+      } else {
+
+        // 4. Calculate next billing date
+        const nextBillingDate = new Date(subscription.lastBilledDate);
+
+        nextBillingDate.setMonth(
+          nextBillingDate.getMonth() + 1
+        );
+
+        // 5. Check whether next billing cycle has arrived
+        if (today >= nextBillingDate) {
+          shouldBill = true;
+        }
+      }
+
+      // 6. Skip if billing cycle has not arrived
+      if (!shouldBill) {
         skipped++;
         continue;
       }
 
+      // 7. Create billing log
       await BillingLog.create({
         company: subscription.company,
         user: subscription.user,
@@ -44,19 +67,21 @@ exports.runBillingCycle = async (req, res) => {
         status: "Success",
       });
 
+      // 7. Update last billed date
       subscription.lastBilledDate = today;
-
       await subscription.save();
 
       billed++;
-
     }
 
-    res.json({
+    res.status(200).json({
       success: true,
-      billed,
-      skipped,
-      expired,
+      message: "Billing cycle completed successfully",
+      summary: {
+        billed,
+        skipped,
+        expired,
+      },
     });
 
   } catch (error) {
@@ -67,7 +92,6 @@ exports.runBillingCycle = async (req, res) => {
     });
 
   }
-
 };
 
 exports.getBillingLogs = async (req, res) => {
